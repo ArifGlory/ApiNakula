@@ -28,13 +28,13 @@ class User extends REST_Controller
     function login_post(){
         $data = $this->input->post();
 
-        $username = $data['username'];
+        $email = $data['username'];
         $password = $data['password'];
 
-        $cek = $this->db->get_where('users',array('username'=>$username))->num_rows();
+        $cek = $this->db->get_where('tb_pelanggan',array('email'=>$email))->num_rows();
 
         if ($cek > 0){
-            $result = $this->db->get_where('users',array('username'=>$username))->result();
+            $result = $this->db->get_where('tb_pelanggan',array('email'=>$email))->result();
 
             if ($password == $result[0]->password){
                 //print_r("login berhasil");
