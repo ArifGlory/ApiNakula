@@ -28,7 +28,7 @@ class User extends REST_Controller
     function login_post(){
         $data = $this->input->post();
 
-        $email = $data['username'];
+        $email = $data['email'];
         $password = $data['password'];
 
         $cek = $this->db->get_where('tb_pelanggan',array('email'=>$email))->num_rows();
@@ -36,11 +36,11 @@ class User extends REST_Controller
         if ($cek > 0){
             $result = $this->db->get_where('tb_pelanggan',array('email'=>$email))->result();
 
-            if ($password == $result[0]->password){
-                //print_r("login berhasil");
+            if ($password == $result[0]->password && $result[0]->publish == "T"){
+                print_r($result);
                 $this->response("sukses login", 200);
             }else{
-                //print_r("login gagal");
+                print_r($result);
                 $this->response("gagal login", 500);
             }
 
